@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <style>
+      h1,
+      h2,
+      h3,
+      h4 {
+        text-align: center;
+      }
+      .text-center {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather App</h1>
+    <div class="text-center">
+      <input class="input-value" type="text" name="" id="" />
+      <button class="submit">Search</button>
+    </div>
+    <h2 class="city-name">Dhaka</h2>
+    <h3 class="temp">32</h3>
+    <h4 class="description">Description</h4>
+
+    <script>
+      const submitBtn = document.querySelector(".submit");
+      const inputValue = document.querySelector(".input-value");
+      const cityName = document.querySelector(".city-name");
+      const temp = document.querySelector(".temp");
+      const description = document.querySelector(".description");
+      submitBtn.addEventListener("click", function () {
+        fetch(
+          `https://api.openweathermap.org/data/2.5/weather?q=${inputValue.value}&appid=7b329b7b025d46110632bf1804718f94`
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            cityName.innerHTML = data.name;
+
+            description.innerHTML = data.weather[0].description.toUpperCase();
+            temp.innerHTML = (data.main.temp - 273.15).toFixed(2);
+          });
+      });
+    </script>
+  </body>
+</html>
